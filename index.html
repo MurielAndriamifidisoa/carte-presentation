@@ -4,21 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Carte de présentation</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     :root {
-      --bg: #0f0f1a;
+      --bg: #0f172a;
       --text: #ffffff;
       --card: rgba(255, 255, 255, 0.05);
       --border: rgba(255, 255, 255, 0.1);
-      --badge: #1f1f2e;
+      --badge: #1f2937;
       --badge-hover: #4c6ef5;
       --btn: #4c6ef5;
       --btn-hover: #3b5bdb;
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
+      padding: 0 1rem;
       font-family: 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--text);
@@ -26,16 +31,16 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      transition: background 0.4s, color 0.4s;
       position: relative;
       overflow: hidden;
-      flex-direction: column;
     }
 
     #particles-js {
       position: absolute;
       width: 100%;
       height: 100%;
-      z-index: 0;
+      z-index: -2;
     }
 
     .carte {
@@ -43,15 +48,14 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       text-align: center;
-      padding: 3rem 2rem 2rem;
+      padding: 2rem;
+      width: 100%;
       max-width: 350px;
-      width: 90%;
-      box-shadow: 0 0 30px rgba(0,0,0,0.4);
-      animation: fadeIn 1s ease-out forwards;
+      box-shadow: 0 0 30px rgba(0,0,0,0.2);
+      animation: fadeIn 0.8s ease-out forwards;
       opacity: 0;
       transform: translateY(30px);
-      position: relative;
-      z-index: 2;
+      backdrop-filter: blur(10px);
     }
 
     @keyframes fadeIn {
@@ -64,7 +68,6 @@
     .photo-container {
       position: relative;
       margin-bottom: 1rem;
-      z-index: 2;
     }
 
     .photo {
@@ -73,23 +76,21 @@
       border-radius: 50%;
       border: 3px solid var(--btn);
       object-fit: cover;
-      box-shadow: 0 0 20px var(--btn);
-      position: relative;
-      z-index: 2;
-      background-color: #000;
+      box-shadow: 0 0 10px var(--btn);
     }
 
     .photo-container::after {
       content: '';
       position: absolute;
-      top: -15px;
-      left: calc(50% - 60px);
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(76, 110, 245, 0.2), transparent 70%);
+      background: radial-gradient(circle, rgba(76, 110, 245, 0.3), transparent 70%);
       animation: pulse 2s infinite;
-      z-index: 1;
+      z-index: -1;
     }
 
     @keyframes pulse {
@@ -100,13 +101,6 @@
     h1 {
       font-size: 1.5rem;
       margin: 0.5rem 0;
-      position: relative;
-      z-index: 2;
-    }
-
-    p {
-      position: relative;
-      z-index: 2;
     }
 
     .bio {
@@ -157,9 +151,19 @@
       background-color: var(--btn-hover);
     }
 
+    .top-text {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      color: #cbd5e1;
+    }
+
+    audio {
+      display: none;
+    }
+
     @media (max-width: 500px) {
       .carte {
-        padding: 2rem 1rem 1.5rem;
+        padding: 1.5rem 1rem;
       }
 
       h1 {
@@ -188,22 +192,18 @@
       .photo-container::after {
         width: 100px;
         height: 100px;
-        top: -10px;
-        left: calc(50% - 50px);
+        top: 5px;
       }
     }
   </style>
 </head>
 <body>
-
-  <!-- Particules -->
   <div id="particles-js"></div>
 
-  <!-- Carte -->
   <div class="carte">
-    <p><i class="fa-solid fa-flask"></i> Petit défi de la semaine</p>
+    <p class="top-text"><i class="fa-solid fa-flask"></i> Petit défi de la semaine</p>
     <div class="photo-container">
-      <img src="494573173_1400585994700105_4035424734013496332_n.jpg" alt="photo de profil" class="photo" />
+      <img src="494573173_1400585994700105_4035424734013496332_n.jpg" alt="photo de profil" class="photo" onmouseenter="document.getElementById('hover-sound').play()" />
     </div>
     <h1>Salut, je suis Muriel</h1>
     <p class="bio">Développeur passionné par l'IA, le backend et les interfaces modernes.</p>
@@ -217,63 +217,65 @@
       <span><i class="fab fa-java"></i> Java</span>
     </div>
 
-    <p class="preference">Je préfère les ambiances sombres avec une touche futuriste.</p>
+    <p class="preference">J’adore les univers sombres et animés qui donnent vie au code.</p>
 
-    <a href="#" class="btn" onclick="playSound()">Voir le défi</a>
+    <a href="#" class="btn">Voir le défi</a>
   </div>
 
-  <!-- Audio -->
-  <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" preload="auto"></audio>
+  <audio id="hover-sound" src="https://assets.mixkit.co/sfx/download/mixkit-fast-double-click-on-mouse-275.wav"></audio>
 
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
     particlesJS("particles-js", {
-      "particles": {
-        "number": {
-          "value": 60,
-          "density": { "enable": true, "value_area": 800 }
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#4c6ef5" },
+        shape: {
+          type: "circle",
+          stroke: { width: 0, color: "#000" },
+          polygon: { nb_sides: 5 }
         },
-        "color": { "value": "#4c6ef5" },
-        "shape": { "type": "circle" },
-        "opacity": {
-          "value": 0.5,
-          "random": true
+        opacity: {
+          value: 0.5,
+          random: true,
+          anim: { enable: true, speed: 0.5, opacity_min: 0.1, sync: false }
         },
-        "size": {
-          "value": 3,
-          "random": true
+        size: {
+          value: 3,
+          random: true,
+          anim: { enable: false }
         },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#4c6ef5",
-          "opacity": 0.3,
-          "width": 1
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#4c6ef5",
+          opacity: 0.4,
+          width: 1
         },
-        "move": {
-          "enable": true,
-          "speed": 2,
-          "direction": "none",
-          "out_mode": "out"
+        move: {
+          enable: true,
+          speed: 2,
+          direction: "none",
+          random: false,
+          straight: false,
+          out_mode: "out",
+          bounce: false
         }
       },
-      "interactivity": {
-        "events": {
-          "onhover": { "enable": true, "mode": "grab" },
-          "onclick": { "enable": true, "mode": "push" }
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
         },
-        "modes": {
-          "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } },
-          "push": { "particles_nb": 4 }
+        modes: {
+          repulse: { distance: 100, duration: 0.4 },
+          push: { particles_nb: 4 }
         }
       },
-      "retina_detect": true
+      retina_detect: true
     });
-
-    function playSound() {
-      document.getElementById('clickSound').play();
-    }
   </script>
 </body>
 </html>
